@@ -17,27 +17,43 @@ html{
     scroll-behavior: smooth;
 }
 
+img{
+    max-width: 100%;
+}
+
 :root{
     
-    font-size: 62.5%;/*1rem = 10px*/
-    
+     font-size: 62.5%;/*1rem = 10px*/
+
     --primary-color: hsl(170, 100%, 26%);
     --headline: hsla(210, 11%, 15%, 1);
     --paragraph: hsla(210, 9%, 31%, 1);
     
     --brand-beige: hsla(39, 100%, 97%, 1);
-    --brand-ligth: hsla(148, 23%, 89%, 1);
+    --brand-ligth: hsl(152, 23%, 89%);
+    --brand-green-ligth: hsl(180, 14%, 97%);
 
+    --brand-green-hover: hsl(170, 100%, 14%);
 
     /*height nav*/
     
     --nav-height: 7.2rem
 }
 
+html,
+body{
+    width: 100%;
+    height: 100%;
+}
+
 body{
     text-align: center;
     font-family: 'DM Sans';
     font-size: 1.6rem;
+
+    overflow: overlay;
+
+    background-color: var(--brand-green-ligth);
 }
 
 .container{
@@ -47,10 +63,12 @@ body{
     padding-inline: 2.4rem;
 }
 
-/*HEADER============================================*/
-header::before{
+
+
+/*HOME============================================*/
+#home::before{
     content: "";
-    width: 100vw;
+    width: 100%;
     height: calc(108rem + var(--nav-height));
     display: block;
     background-color: var(--brand-ligth);
@@ -60,25 +78,26 @@ header::before{
     z-index: -1;
 }
 
-header{
+
+#home{
     padding-top: calc(4rem + var(--nav-height));
 }
 
 
-header h4{
+#home h4{
     font-size: 1.4rem;
     color: var(--primary-color);
     margin-bottom: 1.6rem;
 }
 
-header h1{
+#home h1{
     font-size: 3.4rem;
     color: var(--headline);
     line-height: 130%;
     margin-bottom: 2.4rem;
 }
 
-header p{
+#home p{
     font-size: 1.8rem;
     color: var(--paragraph);
     line-height: 150%;
@@ -86,7 +105,7 @@ header p{
 }
 
 
-header button{
+#home a.button{
     background-color: var(--primary-color);
     color: #ffffff;
     font-size: 1.4rem;
@@ -106,14 +125,23 @@ header button{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 6rem;
+
+    transition: background-color 0.2s;
 }
 
-header img{
+#home a.button:hover{
+    background-color: var(--brand-green-hover);
+}
+
+#home img{
     width: 26.4rem;
     display: block;
     margin-inline: auto;
 }
 
+#home{
+    padding-bottom: 0;
+}
 
 .stats{
     width: 32.7rem;
@@ -142,20 +170,56 @@ header img{
     font-size: 1.6rem;
     line-height: 150%;
     color: var(--primary-color);
-    margin: 0;
+
 }
+
+/*SECTION=========================================*/
+
+section{
+    padding-block: 10rem;
+}
+
+section header h4{
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    line-height: 150%;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+}
+
+section header h2{
+    font-size: 3rem;
+    line-height: 3.9rem;
+    color: var(--headline);
+    margin-bottom: 6rem;
+}
+
 
 /*NAV=============================================*/
 
 nav{
     display: flex;
-
     height: var(--nav-height);
     position: fixed;
     top: 0;
-    left: 50%;
-    
-    transform: translateX(-50%);
+    width: 100vw;
+    z-index: 100;
+}
+
+nav .logo svg {
+    width: 13.2rem;
+    height: 1.73rem;
+}
+
+nav.scroll{
+    background-color: var(--primary-color);
+}
+
+ul.nav-itens li a{
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #FFFAF1;
 }
 
 nav .container{
@@ -164,17 +228,275 @@ nav .container{
     align-items: center;
 }
 
-nav.scroll{
-    background-color: var(--primary-color);
-    width: 100vw;
+
+nav .open-menu{
+    background: none;
+    border: none;
 }
 
+nav.scroll .open-menu{
+    background-color: var(--primary-color);
+}
 
-nav.scroll svg:nth-child(1) path{
+nav.scroll .open-menu svg path{
+ stroke: white;
+}
+
+nav.scroll .logo svg path{
     fill: white;
 }
 
-nav.scroll svg:nth-child(2) path{
+nav button{
+    cursor: pointer;
+}
+
+/*MENU-EXPANDED=============================================*/
+
+body.menu-expanded{
+    overflow: hidden;
+}
+
+body.menu-expanded > :not(nav){
+    visibility: hidden;
+}
+
+.menu, 
+.close-menu,
+body.menu-expanded .open-menu{
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.menu-expanded .menu,
+body.menu-expanded .close-menu{
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.menu{
+    transform: translateY(100%);
+}
+
+body.menu-expanded .menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    width: 100vw;
+    height: 100vh;
+
+    transition: transform 300ms;
+    transform: translateY(0%);
+}
+
+body.menu-expanded .menu{
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+}
+
+body.menu-expanded .menu .nav-itens{
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+    margin-top: calc(var(--nav-height) + 6rem);
+}
+
+body.menu-expanded .menu a.button{
+    width: 27.4rem;
+    height: 5.5rem;
+    margin-inline: auto;
+
+    
+    border-radius: 4rem;
+    border: none;
+    background-color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+} 
+
+body.menu-expanded .social-links{
+    display: flex;
+    justify-content: center;
+    gap: 3.2rem;
+    margin-top: 4rem;
+}
+
+body.menu-expanded .close-menu{
+    background: none;
+    border: none;
+    position: relative;
+    z-index: 10;
+}
+
+body.menu-expanded .logo{
+    position: relative;
+    z-index: 10;
+}
+
+body.menu-expanded nav .logo svg:nth-child(1) path{
+    fill: white;
+}
+
+body.menu-expanded nav .logo svg:nth-child(2) path{
     stroke: white;
 }
 
+
+/*SERVICES=============================================*/
+
+#services .service-itens{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+#services .service-item{
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    
+    padding: 2.4rem;
+    text-align: left;
+    
+    border: 1px solid var(--brand-ligth);
+    border-radius: 0.6rem;
+}
+
+#services .service-item h4{
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 3.1rem;
+}
+
+
+#services .service-item p{
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+
+/*ABOUT===================================================*/
+
+
+#about{
+    text-align: left;
+    background-color: var(--brand-beige);
+}
+
+#about h4 {
+    margin-bottom: 1.6rem;
+}
+#about h2{
+    margin-bottom: 2.4rem;
+}
+
+#about p{
+    margin-bottom: 6rem;
+}
+
+
+/*CONTACT=======================================================*/
+
+
+
+#contact{
+    text-align: left;
+    background-color: white;
+}
+
+
+.contact-details{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.contact-image{
+    margin-top: 6rem;
+}
+
+.contact-image img{
+    width: 32.4rem;
+    height: 21.3rem;
+}
+
+#contact ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+#contact ul li a{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--paragraph);
+}
+
+#contact a.button{
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+
+    width: 26.3rem;
+    height: 6.2rem;
+    
+    border: none;
+    border-radius: 4rem;
+
+    cursor: pointer;
+    
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+    justify-content: center;
+    
+    transition: background-color 0.2s;
+}
+
+#contact a.button:hover{
+    background-color: var(--brand-green-hover);
+}
+
+footer{
+    text-align: left;
+    padding-block: 6rem;
+    background-color: var(--primary-color);
+}
+
+footer .logo{
+    margin-bottom: 2.4rem;
+}
+
+footer .logo svg{
+    width: 23.6rem;
+    height: 3.1rem;
+}
+
+.copyright{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-bottom: 3.2rem;
+}
+
+footer p{
+    color: var(--brand-beige);
+}
+
+footer ul{
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+}
