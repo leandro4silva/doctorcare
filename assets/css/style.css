@@ -23,20 +23,21 @@ img{
 
 :root{
     
-     font-size: 62.5%;/*1rem = 10px*/
-
-    --primary-color: hsl(170, 100%, 26%);
+    --hue: 170;
+    
+    --primary-color: hsl(var(--hue), 100%, 26%);
     --headline: hsla(210, 11%, 15%, 1);
     --paragraph: hsla(210, 9%, 31%, 1);
     
     --brand-beige: hsla(39, 100%, 97%, 1);
-    --brand-ligth: hsl(152, 23%, 89%);
-    --brand-green-ligth: hsl(180, 14%, 97%);
-
-    --brand-green-hover: hsl(170, 100%, 14%);
-
-    /*height nav*/
+    --brand-ligth: hsl(calc(var(--hue) - 22), 23%, 89%);
+    --brand-green-ligth: hsl(calc(var(--hue) + 10), 14%, 97%);
     
+    --brand-green-hover: hsl(var(--hue), 100%, 14%);
+    
+    font-size: 62.5%;/*1rem = 10px*/
+    
+    /*height nav*/
     --nav-height: 7.2rem
 }
 
@@ -57,7 +58,7 @@ body{
 }
 
 .container{
-    width: 37.5rem;
+    width: min(50rem, 100%);
     margin-left: auto;
     margin-right: auto;
     padding-inline: 2.4rem;
@@ -144,7 +145,7 @@ body{
 }
 
 .stats{
-    width: 32.7rem;
+    width: 100%;
     padding-block: 4rem;
     margin-inline: auto;
 
@@ -228,11 +229,20 @@ nav .container{
     align-items: center;
 }
 
-
 nav .open-menu{
     background: none;
     border: none;
 }
+
+nav .open-menu svg path{
+    stroke: var(--primary-color);
+}
+
+nav .logo svg path[fill*="#00856F"]{
+    fill: var(--primary-color);
+}
+
+/*scroll*/
 
 nav.scroll .open-menu{
     background-color: var(--primary-color);
@@ -248,6 +258,11 @@ nav.scroll .logo svg path{
 
 nav button{
     cursor: pointer;
+}
+
+nav .menu,
+nav .close-menu{
+    position: fixed;
 }
 
 /*MENU-EXPANDED=============================================*/
@@ -279,7 +294,6 @@ body.menu-expanded .close-menu{
 }
 
 body.menu-expanded .menu{
-    position: fixed;
     top: 0;
     left: 0;
     background-color: var(--primary-color);
@@ -323,6 +337,10 @@ body.menu-expanded .menu a.button{
     line-height: 2.3rem;
 } 
 
+body.menu-expanded .menu a.button:hover{
+    filter: brightness(1.1);
+}
+
 body.menu-expanded .social-links{
     display: flex;
     justify-content: center;
@@ -357,6 +375,10 @@ body.menu-expanded nav .logo svg:nth-child(2) path{
     display: flex;
     flex-direction: column;
     gap: 3.2rem;
+}
+
+#services .service-item svg path{
+    stroke: var(--primary-color);
 }
 
 #services .service-item{
@@ -407,13 +429,15 @@ body.menu-expanded nav .logo svg:nth-child(2) path{
 
 /*CONTACT=======================================================*/
 
-
-
 #contact{
     text-align: left;
     background-color: white;
 }
 
+
+.contact-details ul li a svg path{
+    stroke: var(--primary-color);
+}
 
 .contact-details{
     display: flex;
@@ -499,4 +523,120 @@ footer ul{
     display: flex;
     align-items: center;
     gap: 3.2rem;
+}
+
+#backToTop{
+    position: fixed;
+    bottom: 1rem;
+    right: 2.5rem;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(100%);
+    transition: 300ms;
+}
+
+#backToTop svg circle{
+    fill: var(--primary-color);
+}
+
+#backToTop.show{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/*RESPONSIVE ==============================================================*/
+
+@media (min-width: 1024px) {
+    
+
+    /*GERAL===========================================================*/
+
+    .container{
+        width: min(112rem, 100%);
+    }
+
+    /*NAV===========================================================*/
+    
+    nav .container *{
+        margin: 0;
+        padding: 0;
+        visibility: initial;
+        display: initial;
+        opacity: initial;
+        flex-direction: initial;
+        position: initial;
+        transform: initial;
+        color: initial;
+        background-color: initial;
+    }
+
+    nav .open-menu,
+    nav .close-menu,
+    nav .social-links{
+        display: none;
+    }
+
+    nav .container{
+        display: flex;
+        gap: 25.5rem;
+    }
+
+    nav .menu{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 70%;
+    }
+
+    nav .menu .nav-itens{
+        display: flex;
+        gap: 3.2rem;
+
+    }
+
+    nav .menu ul.nav-itens li a{
+        color: var(--primary-color);
+        font-size: 1.6rem;
+        opacity: 0.7;
+        font-weight: 400;
+
+    }
+
+    nav .menu ul.nav-itens li a:hover{
+        opacity: 1;
+    }
+
+    nav .menu a.button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 2.4rem;
+
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary-color);
+
+        border: 1px solid var(--primary-color);
+        border-radius: 4rem;
+
+    }
+
+    nav.scroll ul.nav-itens li a{       
+        color: var(--brand-green-ligth);
+        opacity: 0.6;
+    }
+
+    nav.scroll .menu a.button{
+        border-color: white;
+        color: white;
+    }
+
+
+
+
+
 }
