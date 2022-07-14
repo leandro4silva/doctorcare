@@ -4,7 +4,37 @@ onScroll()
 function onScroll(){
     changeNavColorOnScroll();
     showBackToTopButton();
+    activateMenuAtCurrentSection(home);
+    activateMenuAtCurrentSection(services);
+    activateMenuAtCurrentSection(about);
+
 }
+
+function activateMenuAtCurrentSection(section){
+    //linha ao meio da tela
+    const targetLine = scrollY + (innerHeight / 2);
+
+    //topo da section
+    const sectionTop = section.offsetTop
+
+    //altura da section
+    const sectionHeight = section.offsetHeight 
+
+    //onde a section termina
+    const sectionEndAt = sectionTop + sectionHeight
+
+    //topo da section chegou ou ultrapassou a linha ao meio da tela
+    const sectionTopReachOrPassedTargetLine = targetLine >= sectionTop && targetLine <= sectionEndAt
+
+    const menuElement = document.querySelector(`.menu a[href*=${section.getAttribute('id')}]`)
+
+    menuElement.classList.remove('active')
+    if(sectionTopReachOrPassedTargetLine){
+        menuElement.classList.add('active')
+    }
+    
+}
+
 
 function changeNavColorOnScroll(){
     const nav = document.querySelector("nav")

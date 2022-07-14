@@ -23,7 +23,7 @@ img{
 
 :root{
     
-    --hue: 170;
+    --hue: 220;
     
     --primary-color: hsl(var(--hue), 100%, 26%);
     --headline: hsla(210, 11%, 15%, 1);
@@ -70,7 +70,7 @@ body{
 #home::before{
     content: "";
     width: 100%;
-    height: calc(108rem + var(--nav-height));
+    height: calc(76% + var(--nav-height));
     display: block;
     background-color: var(--brand-ligth);
     position: absolute;
@@ -445,6 +445,10 @@ body.menu-expanded nav .logo svg:nth-child(2) path{
     gap: 3.2rem;
 }
 
+.contact-details a.button{
+    margin-bottom: 6rem;
+}
+
 .contact-image{
     margin-top: 6rem;
 }
@@ -555,8 +559,24 @@ footer ul{
 
     /*GERAL===========================================================*/
 
+    body{
+        overflow: auto;
+    }
+
     .container{
         width: min(112rem, 100%);
+        display: grid;
+        
+    }
+
+    section{
+        padding-block: 16rem;
+    }
+
+    section header h2,
+    section h2{
+        font-size: 4rem;
+        line-height: 5.2rem;
     }
 
     /*NAV===========================================================*/
@@ -565,6 +585,7 @@ footer ul{
         margin: 0;
         padding: 0;
         visibility: initial;
+
         display: initial;
         opacity: initial;
         flex-direction: initial;
@@ -572,6 +593,7 @@ footer ul{
         transform: initial;
         color: initial;
         background-color: initial;
+        filter: initial;
     }
 
     nav .open-menu,
@@ -604,10 +626,41 @@ footer ul{
         opacity: 0.7;
         font-weight: 400;
 
+        transition: opacity 0.3s;
+
     }
 
+    nav .menu ul.nav-itens li a.active,
     nav .menu ul.nav-itens li a:hover{
+        font-weight: 700;
         opacity: 1;
+    }
+
+    nav .menu ul.nav-itens li a::after{
+        content: "";
+        width: 0%;
+        height: 2px;
+        background-color: var(--primary-color);
+
+        position: relative;
+        bottom: -2rem;
+        left: -0.6rem;
+
+        display: block;
+
+        transition: width 0.2s;
+    }
+
+    nav .menu ul.nav-itens li a.active::after,
+    nav .menu ul.nav-itens li a:hover::after{
+        width: 100%;
+        padding-inline: 0.5rem;   
+    }
+
+    nav.scroll .menu ul.nav-itens li a.active::after,
+    nav.scroll .menu ul.nav-itens li a:hover::after{
+        background-color: white;
+        font-weight: 700;
     }
 
     nav .menu a.button{
@@ -623,6 +676,7 @@ footer ul{
         border: 1px solid var(--primary-color);
         border-radius: 4rem;
 
+        transition: 0.3s;
     }
 
     nav.scroll ul.nav-itens li a{       
@@ -636,7 +690,168 @@ footer ul{
     }
 
 
+    nav .menu a.button:hover{
+        background-color: var(--primary-color);
+        color: var(--brand-green-ligth);
+    }
+
+    nav.scroll a.button:hover{
+        background-color: var(--brand-green-ligth);
+        color: var(--primary-color);
+    }
 
 
+    /*HOME===========================================================*/
+
+    #home::before{
+        height: calc(94% - var(--nav-height));
+    }
+
+    #home{
+        padding-top: var(--nav-height);
+    } 
+
+    #home .container{
+        grid-template-columns: 60.5rem 1fr;
+        grid-template-areas: 
+        'A B'
+        'C C';
+    }
+
+    #home .col-a{
+        grid-area: A;
+        text-align: left;
+        align-self: center;
+    }
+
+    #home h1{
+        font-size: 5.2rem;
+    }
+
+    #home p{
+        font-size: 1.8rem;
+    }
+
+    #home .col-a .content .button{
+        margin: 0;
+    }
+
+    #home .col-b{
+        grid-area: B;
+    }
+
+    #home .stats{
+        grid-area: C;
+        flex-direction: row;
+        padding: 6rem;
+        gap: 0;
+    }
+
+    #home .stats .stat + .stat{
+        border-left: 1px solid var(--primary-color);
+    }
+
+    #home .stats .stat{
+        flex: 1;
+    }
+
+    #home img{
+        width: 42rem;
+    }
+
+    /*SERVICES===========================================================*/
+
+    #services h2{
+        width: 49.7rem;
+        margin-inline: auto;
+    }
+
+    #services .service-itens{
+        flex-direction: row;
+        flex-wrap: wrap; 
+        gap: 4rem;
+    }
+
+    #services .service-item{
+        width: 30%;
+        flex-grow: 1;
+    }
+
+    /*ABOUT===========================================================*/
+
+    #about .container{
+        grid-template-columns: 48rem 1fr;
+        grid-template-areas: 'A B';
+        gap: 6.7rem;
+    }
+
+
+    #about .col-a{
+        grid-area: B;
+        align-self: center;
+    }
+
+    #about .col-b{
+        grid-area: A;
+    }
+
+    #about .content p{
+        margin-bottom: 0;
+    }
+
+    #about img{
+        width: 48rem;
+        height: 41.4rem;
+    }
+
+
+    /*CONTACT===========================================================*/
+    
+    #contact .container{
+        grid-template-columns: 1fr 57.5rem;
+        grid-template-areas: 'A B';
+        gap: 14.1rem;
+    }
+
+    #contact .col-b{
+        grid-area: B;
+    }
+
+    #contact .col-a{
+        grid-area: A;
+        align-self: center;
+    }
+
+    #contact img{
+        width: 57.5rem;
+        height: 37.9rem;
+    }
+
+    /*FOOTER===========================================================*/
+
+
+    footer{
+        padding-block: 8rem;
+    }
+
+    footer .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'A B'; 
+    }
+
+    footer p {
+        margin-bottom: 0;
+    }
+
+    footer .col-a{
+        grid-area: A;
+        align-self: center;
+    }
+
+    footer .col-b{
+        grid-area: B;
+        align-self: center;
+        justify-self: flex-end;
+    }
 
 }
